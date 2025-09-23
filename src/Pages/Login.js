@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
+import { Button } from '../Button';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isSignup, setIsSignup] = useState(false); // State to toggle between login and signup
+  const [isSignup, setIsSignup] = useState(false); //toggle
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,10 +21,10 @@ const Login = () => {
         password,
       });
 
-      // Store the token in local storage or any other storage
+      // local storage
       localStorage.setItem('token', response.data.token);
 
-      // Redirect to the Podcast Gallery page
+      // Podcast Gallery page
       navigate('/podcasts');
     } catch (error) {
       setError('Invalid email or password');
@@ -73,14 +74,27 @@ const Login = () => {
           />
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">{isSignup ? 'Sign Up' : 'Login'}</button>
-        <button
+
+         
+        <Button 
+          type="submit"
+          buttonStyle="btn--primary"
+          buttonSize="btn--medium"
+        >
+          {isSignup ? 'Sign Up' : 'Login'}
+        </Button>
+
+        <Button 
           type="button"
           onClick={() => setIsSignup(!isSignup)}
+          buttonStyle="btn--solid-black"
+          buttonSize="btn--medium"
           className="toggle-button"
         >
           {isSignup ? 'Already have an account? Login' : 'Need an account? Sign Up'}
-        </button>
+        </Button>
+
+
 
         {!isSignup && (
           <div className="forgot-password-container">
